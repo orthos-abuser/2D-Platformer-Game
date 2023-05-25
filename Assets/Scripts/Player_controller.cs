@@ -1,11 +1,12 @@
 using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.SearchService;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player_controller : MonoBehaviour
 {
-
     public GameObject player;
     public float player_speed;
     public Animator animator;
@@ -13,10 +14,16 @@ public class Player_controller : MonoBehaviour
     public int jump_distance;
     public bool has_jumped=true;
     public int last_direction = 1;
+    public enum playerstate {alive,dead};
+    public playerstate state = playerstate.alive;
+    public bool isdead = false;
+    public Transform spawn_p;
+    public GameObject player_prefab;
     // Start is called before the first frame update
     void Start()
     {
-        
+        animator.SetBool("Dead", false);
+        spawn_p = GameObject.Find("Respawn box").GetComponent<Transform>();
     }
 
     // Update is called once per frame
@@ -32,7 +39,7 @@ public class Player_controller : MonoBehaviour
     {
         if (!has_jumped)
         {
-            Debug.Log(speed);
+            //Debug.Log(speed);
             animator.SetFloat("Speed", Mathf.Abs(speed));
             if (speed < 0)
             {
@@ -90,5 +97,28 @@ public class Player_controller : MonoBehaviour
         {
             has_jumped = false;
         }
+    }
+
+    public void ifdead()
+    {
+        if(state==playerstate.alive)
+        {
+            state =playerstate.dead;
+           // isdead = true;
+            animator.SetBool("Dead",true);
+            new WaitForSeconds(5.0f);
+            state = playerstate.alive;
+            animator.SetBool("Dead", false);
+            lives_system.lives_decrease();
+            //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            reset_player_on_death();
+        }
+    }
+    public void reset_player_on_death()
+    {
+        Vector3 spawn_point = spawn_p.position;
+        //Destroy(this.gameObject);
+        gameObject.transform.position= spawn_point;
+        //Instantiate(player_prefab, spawn_point, Quaternion.identity);
     }
 }
