@@ -30,11 +30,13 @@ public class Level_select_button : MonoBehaviour
 
             case levelStatus.Unlocked:
                 SceneManager.LoadScene(LevelName);
-            break;
+                SoundManager.Instance_of_sound.Play(Sounds.ButtonClick);
+                break;
 
             case levelStatus.Completed:
                 SceneManager.LoadScene(LevelName);
-            break;
+                SoundManager.Instance_of_sound.Play(Sounds.ButtonClick);
+                break;
         }
     }
 }
