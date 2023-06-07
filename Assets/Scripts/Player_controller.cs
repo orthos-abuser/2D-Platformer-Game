@@ -1,6 +1,7 @@
 using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.SymbolStore;
 using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -19,6 +20,9 @@ public class Player_controller : MonoBehaviour
     public bool isdead = false;
     public Transform spawn_p;
     public GameObject player_prefab;
+
+    private bool isMoving = false;
+    private bool isplaying = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -47,6 +51,8 @@ public class Player_controller : MonoBehaviour
                 Scale.x = -1;
                 transform.localScale = Scale;
                 last_direction = -1;
+                isMoving = true;
+                //SoundManager.Instance_of_sound.Play(Sounds.PlayerMove);
             }
             else if (speed > 0)
             {
@@ -54,6 +60,22 @@ public class Player_controller : MonoBehaviour
                 Scale.x = 1;
                 transform.localScale = Scale;
                 last_direction = 1;
+                isMoving = true;
+                //SoundManager.Instance_of_sound.Play(Sounds.PlayerMove);
+            }
+            else
+            {
+                isMoving = false;
+            }
+            if(isMoving==true && isplaying==false)
+            {
+                SoundManager.Instance_of_sound.footstepsenable();
+                isplaying = true;
+            }
+            if(isplaying==true && isMoving==false)
+            {
+                SoundManager.Instance_of_sound.footstepsdisable();
+                isplaying = false;
             }
             if (Input.GetKey("left ctrl"))
             {

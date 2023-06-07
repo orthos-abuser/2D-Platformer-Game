@@ -25,12 +25,15 @@ public class Menu_to_play : MonoBehaviour
 
     public void to_level_select()
     {
+        //SoundManager.Instance.Play(Sounds.ButtonClick);
+        SoundManager.Instance_of_sound.Play(Sounds.ButtonClick);
         level_select.SetActive(true);
         to_menu.SetActive(false);
     }
 
     public void to_menu_select()
     {
+        SoundManager.Instance_of_sound.Play(Sounds.ButtonClick);
         level_select.SetActive(false);
         to_menu.SetActive(true);
     }
