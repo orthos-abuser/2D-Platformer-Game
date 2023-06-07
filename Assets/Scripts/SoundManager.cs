@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 using UnityEngine;
+using UnityEditor;
 
 public class SoundManager : MonoBehaviour
 {
@@ -54,6 +55,18 @@ public class SoundManager : MonoBehaviour
             soundMusic.loop = true;
 
         }
+        if (clip != null && sound == global::Sounds.Death)
+        {
+            soundEffect.PlayOneShot(clip);
+        }
+        if (clip != null && sound == global::Sounds.AllLivesLost)
+        {
+            soundEffect.PlayOneShot(clip);
+        }
+        if (clip != null && sound == global::Sounds.LevelCompleted)
+        {
+            soundEffect.PlayOneShot(clip);
+        }
     }
 
     private AudioClip getSoundClip(Sounds sound)
@@ -80,4 +93,6 @@ public enum Sounds
     PlayerMove,
     Death,
     EnemyDeath,
+    AllLivesLost,
+    LevelCompleted,
 }

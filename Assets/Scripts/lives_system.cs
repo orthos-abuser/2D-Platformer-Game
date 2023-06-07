@@ -22,9 +22,11 @@ public class lives_system : MonoBehaviour
 
     public static void lives_decrease() 
     {
+        SoundManager.Instance_of_sound.Play(global::Sounds.Death);
         //Debug.Log(lives_counter);
         if(lives_counter==1)
         {
+            SoundManager.Instance_of_sound.Play(global::Sounds.AllLivesLost);
             SceneManager.LoadScene("Death_scene");
         }
         //lives_counter = 3;

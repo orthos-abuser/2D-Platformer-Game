@@ -21,6 +21,7 @@ public class Next_level_transition : MonoBehaviour
     {
         if(collision.gameObject.GetComponent<Player_controller>() != null)
         {
+            SoundManager.Instance_of_sound.Play(global::Sounds.LevelCompleted);
             Debug.Log("Here");
             int current_level =SceneManager.GetActiveScene().buildIndex;
             Level_manager.Instance.SetLevelStatus(SceneManager.GetSceneByBuildIndex(current_level).name,levelStatus.Completed);

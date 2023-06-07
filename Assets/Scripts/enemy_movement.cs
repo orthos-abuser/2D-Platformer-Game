@@ -43,7 +43,7 @@ public class enemy_movement : MonoBehaviour
     void Update()
     {
         step = step + speed* Time.deltaTime;
-        Debug.Log(step);
+        //Debug.Log(step);
         if(step>=1)
         {
             speed = reverse_speed;
