@@ -23,6 +23,8 @@ public class Next_level_transition : MonoBehaviour
         {
             Debug.Log("Here");
             int current_level =SceneManager.GetActiveScene().buildIndex;
+            Level_manager.Instance.SetLevelStatus(SceneManager.GetSceneByBuildIndex(current_level).name,levelStatus.Completed);
+            Level_manager.Instance.SetLevelStatus(SceneManager.GetSceneByBuildIndex(current_level+1).name,levelStatus.Unlocked);
             SceneManager.LoadScene(current_level+1);
         }
     }
